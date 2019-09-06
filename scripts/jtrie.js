@@ -1,4 +1,4 @@
-
+const fs = require('fs');
 
 class Trie {
 
@@ -162,7 +162,7 @@ trie = new Trie()
 // trie.pprint()
 // trie.saveTo('t1.json')
 
-trie.loadTrie('t1.json')
+trie.loadTrie('./t1.json')
 // trie.pprint()
 
 var cipher = trie.encrypt('tyukyjthrfg')

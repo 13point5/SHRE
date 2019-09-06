@@ -10,7 +10,7 @@ class BTrie:
     def load_dict(self, data_filepath):
         with open(data_filepath, 'r') as file:
             for line in file.readlines():
-                self.btrie.add_word(line.rstrip("\n")) # assuming one word in each line
+                self.add_word(line.rstrip("\n")) # assuming one word in each line
 
 
     def save_to(self, dest_filepath):
@@ -124,7 +124,7 @@ class BTrie:
 
 
 trie = BTrie()
-trie.load_trie('trie1.json')
+trie.load_trie('t1.json')
 word = 'hjkjhiijsnocoderankithgghjk'
 
 cipher = trie.encrypt(word)

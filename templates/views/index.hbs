@@ -2,20 +2,23 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/styles.css">
         <title>SHREncryption</title>
     </head>
     <body>
-        <h1>SHREncryption</h1>
 
-        <div>
-            <form action="/encrypt" method="get">
+        <div class="main-content">
+            {{>header}}
+            <form action="#" method="get">
                 <input name="text" id="plain-text" type="text"><br>
                 <button type="submit">Encrypt</button>
             </form>
         </div>
 
-        <div>
+        <div class="main-content">
             <p id="encrypted-text"></p>
         </div>
+
+        {{>footer}}
     </body>
 </html>

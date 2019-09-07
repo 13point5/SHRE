@@ -1,0 +1,27 @@
+body {
+    max-width: 500px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 0 16px;
+
+    color: #333333;
+    font-family: arial;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex-grow: 1;
+}
+
+h1 {
+    font-size: 64px;
+}
+
+footer {
+    border-top: 1px solid #eeeeee;
+    color: #888888;
+    margin-top 16px;
+    padding: 16px 0;
+}

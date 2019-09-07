@@ -134,6 +134,14 @@ class Trie {
         return cipher
     }
 
+    encryptedText(cipher) {
+        let cipherText = ''
+        for (var i = 0; i < cipher.length; i++) {
+            cipherText += cipher[i][0] + ' '
+        }
+        return cipherText
+    }
+
     loadDict(filePath) {
         var array = fs.readFileSync(filePath).toString().split("\n")
         for (var i = 0; i < array.length; i++) {
@@ -158,12 +166,16 @@ class Trie {
 
 
 trie = new Trie()
-// trie.loadDict('../dictionaries/google-10000-english-usa-no-swears-medium.txt')
-// trie.pprint()
-// trie.saveTo('t1.json')
+// // trie.loadDict('../dictionaries/google-10000-english-usa-no-swears-medium.txt')
+// // trie.pprint()
+// // trie.saveTo('t1.json')
+//
+trie.loadTrie('t1.json')
+// // trie.pprint()
+//
+// var cipher = trie.encrypt('tyukyjthrfg')
+// console.log(cipher);
 
-trie.loadTrie('./t1.json')
-// trie.pprint()
-
-var cipher = trie.encrypt('tyukyjthrfg')
-console.log(cipher);
+module.exports = {
+    Trie: trie
+}

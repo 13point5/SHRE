@@ -18,5 +18,6 @@
   },
   "homepage": "https://github.com/13point5/SHRE#readme",
   "dependencies": {
+    "express": "^4.17.1"
   }
 }

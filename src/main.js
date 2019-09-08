@@ -22,6 +22,18 @@ app.get('', (req, res) => {
     res.render('index')
 })
 
+app.get('/decrypt', (req, res) => {
+    res.render('decryption')
+})
+
+app.get('/docs', (req, res) => {
+    res.render('docs')
+})
+
+app.get('/about', (req, res) => {
+    res.render('about')
+})
+
 app.get('/encrypt', (req, res) => {
     let cipher = trie.encrypt(req.query.text)
     let cipherText = trie.encryptedText(cipher)

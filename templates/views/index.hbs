@@ -9,16 +9,18 @@
 
         <div class="main-content">
             {{>header}}
-            <form action="#" method="get">
-                <input name="text" id="plain-text" type="text"><br>
-                <button type="submit">Encrypt</button>
+            <form id="encrypt-form">
+                <h3>Plain text</h3>
+                <textarea id="plain-text" rows="8" cols="80"></textarea>
+                <button>Encrypt</button>
             </form>
-        </div>
-
-        <div class="main-content">
-            <p id="encrypted-text"></p>
+            <br><br>
+            <h3>Encrypted text</h3>
+            <textarea id="encrypted-text" rows="8" cols="80"></textarea>
         </div>
 
         {{>footer}}
+
+        <script src="/scripts/encryptData.js"></script>
     </body>
 </html>

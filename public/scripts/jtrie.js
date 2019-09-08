@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 class Trie {
 
@@ -165,12 +166,13 @@ class Trie {
 }
 
 
-trie = new Trie()
+var trie = new Trie()
 // // trie.loadDict('../dictionaries/google-10000-english-usa-no-swears-medium.txt')
 // // trie.pprint()
 // // trie.saveTo('t1.json')
 //
-trie.loadTrie('t1.json')
+const dataPath = path.join(__dirname, '../data/t1.json')
+trie.loadTrie(dataPath)
 // // trie.pprint()
 //
 // var cipher = trie.encrypt('tyukyjthrfg')

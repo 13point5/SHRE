@@ -53,7 +53,6 @@ textarea {
 }
 
 button {
-    width: 100px;
     font-size: 16px;
     padding: 8px;
     cursor: pointer;
@@ -64,7 +63,8 @@ button {
 
 #bla1 {
     width: 600px;
+    /* height: 400px;
+    overflow: auto; */
     background-color: white;
     color: black;
-    font-weight: 700;
 }

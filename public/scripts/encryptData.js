@@ -15,9 +15,9 @@ encryptForm.addEventListener('submit', (e) => {
         fetch('/encrypt?text=' + plainText).then((response) => {
             response.json().then((data) => {
                 if (data.error) {
-                    encryptedTextField.textContent = 'Error'
+                    encryptedTextField.innerHTML = 'Error'
                 } else {
-                    encryptedTextField.textContent = data.cipherText
+                    encryptedTextField.innerHTML = data.cipherText
                 }
             })
         })

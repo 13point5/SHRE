@@ -61,3 +61,10 @@ button {
     background: #888888;
     color: white;
 }
+
+#bla1 {
+    width: 600px;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+}

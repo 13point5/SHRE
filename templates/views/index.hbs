@@ -4,16 +4,8 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/styles.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $("[href]").each(function() {
-                    if (this.href == window.location.href) {
-                        $(this).addClass("current-link");
-                    }
-                });
-            });
-        </script>
+        <script src="https://files.codepedia.info/files/uploads/iScripts/html2canvas.js"></script>
+        <script src="/scripts/linkHighlighting.js"></script>
 
         <title>SHREncryption</title>
     </head>
@@ -28,11 +20,22 @@
             </form>
             <br><br>
             <h3>SHREncrypted text</h3>
-            <textarea id="encrypted-text" readonly></textarea>
+
+            <div id="bla1">
+                <p id="encrypted-text"></p>
+            </div>
+            
+            {{!-- <input id="btn-Preview-Image" type="button" value="Generate Image"/> --}}
+            <button id="btn-Preview-Image">Generate Image</button>
+            <a id="encrypted-text-to-img" href="#"><button>Download Image</button></a>
+            {{!-- <br><br> --}}
+            {{!-- <h3>Preview :</h3>
+            <div id="previewImage"></div> --}}
         </div>
 
         {{>footer}}
 
         <script src="/scripts/encryptData.js"></script>
+        <script src="/scripts/text2img.js"></script>
     </body>
 </html>

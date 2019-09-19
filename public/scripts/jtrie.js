@@ -166,7 +166,7 @@ class Trie {
 }
 
 
-var trie = new Trie()
+let trie = new Trie()
 // // trie.loadDict('../dictionaries/google-10000-english-usa-no-swears-medium.txt')
 // // trie.pprint()
 // // trie.saveTo('t1.json')

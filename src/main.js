@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
 const trie = require('../public/scripts/jtrie.js').Trie;
+const text2img = require('./text2img.js')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -38,6 +39,21 @@ app.get('/encrypt', (req, res) => {
     let cipher = trie.encrypt(req.query.text)
     let cipherText = trie.encryptedText(cipher)
     res.send({ cipherText })
+})
+
+app.get('/t2i', (req, res) => {
+    let ptext = req.query.text
+    text2img(ptext, (error, response) => {
+        if (error) {
+            res.send({
+                error
+            })
+        } else {
+            res.send(response.body)
+        }
+        // console.log('error: ', error)
+        // console.log('resp: ', response)
+    })
 })
 
 app.listen(port, () => {

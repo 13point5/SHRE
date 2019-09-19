@@ -2,6 +2,7 @@ const encryptForm = document.querySelector('#encrypt-form')
 const plainTextField = document.querySelector('#plain-text')
 const encryptedTextField = document.querySelector('#encrypted-text')
 const downloadImgBtn = document.querySelector('#download-img-btn')
+const actualDownloadImgBtn = document.querySelector('#actual-download-img-btn')
 
 
 encryptForm.addEventListener('submit', (e) => {
@@ -40,6 +41,8 @@ downloadImgBtn.addEventListener('click', (e) => {
                 else {
                     console.log('Button clicked')
                     console.log(data)
+                    actualDownloadImgBtn.href = 'data:image/png;base64,' + data.img
+                    actualDownloadImgBtn.click()
                 }
             })
         })

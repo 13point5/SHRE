@@ -51,8 +51,6 @@ app.get('/t2i', (req, res) => {
         } else {
             res.send(response.body)
         }
-        // console.log('error: ', error)
-        // console.log('resp: ', response)
     })
 })
 

@@ -1,14 +1,13 @@
 const request = require('request')
 
 const text2img = (text, callback) => {
-    const apiURl = 'https://stegoman-api.herokuapp.com/text2img'
-    const ptext = text
+
     request.post({
         headers: {'content-type' : 'application/json'},
-        url: apiURl,
+        url: 'https://stegoman-api.herokuapp.com/text2img',
         json: true,
         body: {
-            text: ptext
+            text
         }
     }, (error, response) => {
         if(error)

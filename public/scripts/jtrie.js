@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
 class Trie {
 
@@ -8,12 +8,12 @@ class Trie {
     }
 
     addWord(word) {
-        var tmp2 = this.trie
-        var tmp = tmp2
+        let tmp2 = this.trie
+        let tmp = tmp2
 
-        var first_char = word[0]
-        var word_len = word.length
-        var curr_char
+        let first_char = word[0]
+        let word_len = word.length
+        let curr_char
 
         if (tmp[first_char] === undefined)
             tmp[first_char] = {'end': false}
@@ -23,7 +23,7 @@ class Trie {
         else {
             tmp = tmp[first_char]
 
-            for (var idx = 1; idx < word.length; idx++) {
+            for (let idx = 1; idx < word.length; idx++) {
                 curr_char = word[idx]
 
                 if (tmp[curr_char] === undefined)
@@ -40,8 +40,8 @@ class Trie {
     }
 
     longestPrefix(word) {
-        var first_char = word[0]
-        var word_len = word.length
+        let first_char = word[0]
+        let word_len = word.length
 
         if (this.trie[first_char] === undefined) {
             return {
@@ -49,10 +49,10 @@ class Trie {
             }
         }
 
-        var tmp = this.trie[first_char]
-        var prefix = first_char
-        var curr_char = first_char
-        var idx = 0
+        let tmp = this.trie[first_char]
+        let prefix = first_char
+        let curr_char = first_char
+        let idx = 0
 
         for (idx = 1; idx < word_len; idx++) {
             curr_char = word[idx]
@@ -74,7 +74,7 @@ class Trie {
     }
 
     getNextChars(tmp) {
-        var next_choices = Object.keys(tmp)
+        let next_choices = Object.keys(tmp)
         next_choices = next_choices.filter((item) => item !== 'end')
         return next_choices
     }
@@ -87,8 +87,8 @@ class Trie {
     }
 
     completeWord(prefix, tmp, idx) {
-        var next_choices = this.getNextChars(tmp)
-        var next_char, word
+        let next_choices = this.getNextChars(tmp)
+        let next_char, word
 
         word = prefix
         while (tmp['end'] === false) {
@@ -108,9 +108,9 @@ class Trie {
     }
 
     encrypt(msg) {
-        var cipher = []
-        var msg_len = msg.length
-        var prefix_res, word_res, prefix, tmp, idx, word
+        let cipher = []
+        let msg_len = msg.length
+        let prefix_res, word_res, prefix, tmp, idx, word
 
         while (msg_len > 0) {
 
@@ -137,15 +137,15 @@ class Trie {
 
     encryptedText(cipher) {
         let cipherText = ''
-        for (var i = 0; i < cipher.length; i++) {
+        for (let i = 0; i < cipher.length; i++) {
             cipherText += cipher[i][0] + ' '
         }
         return cipherText
     }
 
     loadDict(filePath) {
-        var array = fs.readFileSync(filePath).toString().split("\n")
-        for (var i = 0; i < array.length; i++) {
+        let array = fs.readFileSync(filePath).toString().split("\n")
+        for (let i = 0; i < array.length; i++) {
             if (array[i]) {
                     this.addWord(array[i])
             }
@@ -167,16 +167,9 @@ class Trie {
 
 
 let trie = new Trie()
-// // trie.loadDict('../dictionaries/google-10000-english-usa-no-swears-medium.txt')
-// // trie.pprint()
-// // trie.saveTo('t1.json')
-//
-const dataPath = path.join(__dirname, '../data/t1.json')
+let dataPath = path.join(__dirname, '../data/t1.json')
+
 trie.loadTrie(dataPath)
-// // trie.pprint()
-//
-// var cipher = trie.encrypt('tyukyjthrfg')
-// console.log(cipher);
 
 module.exports = {
     Trie: trie

@@ -27,13 +27,13 @@ app.get('/decrypt', (req, res) => {
     res.render('decryption')
 })
 
-app.get('/docs', (req, res) => {
-    res.render('docs')
-})
+// app.get('/docs', (req, res) => {
+//     res.render('docs')
+// })
 
-app.get('/about', (req, res) => {
-    res.render('about')
-})
+// app.get('/about', (req, res) => {
+//     res.render('about')
+// })
 
 app.get('/encrypt', (req, res) => {
     let cipher = trie.encrypt(req.query.text)

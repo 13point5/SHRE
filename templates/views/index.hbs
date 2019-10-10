@@ -21,11 +21,16 @@
             <h3>SHREncrypted text</h3>
 
             <textarea id="encrypted-text"></textarea>
-            <button id="download-img-btn">Download SHREncrypted Image</button><a id="actual-download-img-btn" download="encrypted.png"></a>
+
+            <div>
+                <button id="download-img-btn">Download SHREncrypted Image</button>
+                <a id="actual-download-img-btn" download="encrypted.png"></a>
+                <img src="/data/pacman.gif" id="pacman">
+            </div>
 
         </div>
 
-        {{>footer}}
+        {{!-- {{>footer}} --}}
 
         <script src="/scripts/encryptData.js"></script>
     </body>

@@ -68,3 +68,15 @@ button {
     background-color: white;
     color: black;
 }
+
+#pacman {
+    visibility: hidden;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 16px;
+}
+
+#pacman.show {
+    visibility: visible;
+}

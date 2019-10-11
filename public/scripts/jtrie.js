@@ -137,10 +137,19 @@ class Trie {
 
     encryptedText(cipher) {
         let cipherText = ''
+        let wordLens = ''
+        
         for (let i = 0; i < cipher.length; i++) {
             cipherText += cipher[i][0] + ' '
+            wordLens += cipher[i][1]
+            if (i !== cipher.length-1)
+                wordLens += ','
         }
-        return cipherText
+
+        return {
+            cipherText,
+            wordLens
+        }
     }
 
     loadDict(filePath) {

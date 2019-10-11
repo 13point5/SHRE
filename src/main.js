@@ -5,7 +5,7 @@ const trie = require('../public/scripts/jtrie.js').Trie;
 const text2img = require('./text2img.js')
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3003
 
 const publicDirPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
@@ -37,8 +37,8 @@ app.get('/decrypt', (req, res) => {
 
 app.get('/encrypt', (req, res) => {
     let cipher = trie.encrypt(req.query.text)
-    let cipherText = trie.encryptedText(cipher)
-    res.send({ cipherText })
+    let cipherData = trie.encryptedText(cipher)
+    res.send({ cipherData })
 })
 
 app.get('/t2i', (req, res) => {

@@ -27,7 +27,7 @@ encryptForm.addEventListener('submit', (e) => {
                 if (data.error) {
                     encryptedTextField.innerHTML = 'Error'
                 } else {
-                    encryptedTextField.innerHTML = data.cipherText
+                    encryptedTextField.innerHTML = data.cipherData.cipherText
                 }
             })
         })

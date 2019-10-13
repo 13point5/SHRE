@@ -14,9 +14,16 @@
         <div class="main-content">
             {{>header}}
 
-            <h2>Under construction...</h2>
+            <input type="file" id="files" name="files" />
+            <br>
+            <textarea id="base64"></textarea>
+            <br>
+            <button id="decrypt-img">Decrypt Image</button>
+            <br><br>
+            <textarea id="decrypted-msg"></textarea>
+
         </div>
 
-        {{!-- {{>footer}} --}}
+        <script src="/scripts/decryption.js"></script>
     </body>
 </html>

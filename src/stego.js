@@ -21,6 +21,10 @@ const text2img = (text, callback) => {
 const shrencrypt = (text, msg, callback) => {
 
     let msg_list = msg.split(",")
+    console.log({
+        text: text,
+        msg: msg_list
+    })
 
     request.post({
         headers: {'content-type' : 'application/json'},
@@ -38,7 +42,24 @@ const shrencrypt = (text, msg, callback) => {
     })
 }
 
+const deShrencrypt = (img, callback) => {
+    request.post({
+        headers: {'content-type' : 'application/json'},
+        url: 'https://stegoman-api.herokuapp.com/deshrencrypt',
+        json: true,
+        body: {
+            img
+        }
+    }, (error, response) => {
+        if(error)
+            callback(error, undefined)
+        else
+            callback(undefined, response)
+    })
+}
+
 module.exports = { 
     text2img,
-    shrencrypt
+    shrencrypt,
+    deShrencrypt
 }

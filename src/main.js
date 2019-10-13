@@ -14,6 +14,7 @@ const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
 app.use(express.static(publicDirPath))
+app.use(express.json())
 
 // handlebar config
 app.set('view engine', 'hbs')
@@ -50,6 +51,17 @@ app.get('/shrencrypt', (req, res) => {
     let text = req.query.text
     let msg = req.query.msg
     stego.shrencrypt(text, msg, (error, response) => {
+        if (error) {
+            res.send({ error })
+        } else {
+            res.send(response.body)
+        }
+    })
+})
+
+app.post('/deshrencrypt', (req, res) => {
+    let img = req.body.img
+    stego.deShrencrypt(img, (error, response) => {
         if (error) {
             res.send({ error })
         } else {

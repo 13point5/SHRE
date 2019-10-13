@@ -1,14 +1,19 @@
 const encryptForm = document.getElementById('encrypt-form')
 const plainTextField = document.getElementById('plain-text')
 const encryptedTextField = document.getElementById('encrypted-text')
+
 const normalImgBtn = document.getElementById('normal-img-btn')
 const shreImgBtn = document.getElementById('shre-img-btn')
+
 const normalImgLink = document.getElementById('normal-img-link')
 const shreImgLink = document.getElementById('shre-img-link')
+
 const nacman = document.getElementById("nacman")
 const sacman = document.getElementById("sacman")
 
+
 let cipherData
+
 
 showPacman = (pacman) => {
     pacman.className = "pacman-show"
@@ -49,12 +54,12 @@ normalImgBtn.addEventListener('click', (e) => {
     if (encText == 'Error' || encText == '') {
         alert('SHREncrypted text not found')
     } else {
-        // show pacman
+
         showPacman(nacman)
 
         fetch('/t2i?text=' + encText).then((response) => {
             response.json().then((data) => {
-                // hide pacman
+
                 hidePacman(nacman)
 
                 if(data.error || !data.img)
@@ -79,12 +84,12 @@ shreImgBtn.addEventListener('click', (e) => {
         alert('SHREncrypted text not found')
     } else {
         console.log(cipherData)
-        // show pacman
+
         showPacman(sacman)
 
         fetch('/shrencrypt?text=' + cipherData.cipherText + '&msg=' + cipherData.wordLens).then((response) => {
             response.json().then((data) => {
-                // hide pacman
+
                 hidePacman(sacman)
                 console.log(data)
                 if(data.error || !data.img)

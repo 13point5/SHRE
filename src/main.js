@@ -2,19 +2,20 @@ const express = require('express')
 const path = require('path')
 const hbs = require('hbs')
 const trie = require('../public/scripts/jtrie.js')
-const stego = require('./stego')
-
-
-const app = express()
-const port = process.env.PORT || 3003
 
 
 const publicDirPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
 
+
+const app = express()
+const port = process.env.PORT || 3003
+
+// general config
 app.use(express.static(publicDirPath))
 app.use(express.json())
+
 
 // handlebar config
 app.set('view engine', 'hbs')
@@ -34,40 +35,6 @@ app.get('/encrypt', (req, res) => {
     let cipher = trie.encrypt(req.query.text)
     let cipherData = trie.encryptedText(cipher)
     res.send({ cipherData })
-})
-
-app.get('/t2i', (req, res) => {
-    let ptext = req.query.text
-    stego.text2img(ptext, (error, response) => {
-        if (error) {
-            res.send({ error })
-        } else {
-            res.send(response.body)
-        }
-    })
-})
-
-app.get('/shrencrypt', (req, res) => {
-    let text = req.query.text
-    let msg = req.query.msg
-    stego.shrencrypt(text, msg, (error, response) => {
-        if (error) {
-            res.send({ error })
-        } else {
-            res.send(response.body)
-        }
-    })
-})
-
-app.post('/deshrencrypt', (req, res) => {
-    let img = req.body.img
-    stego.deShrencrypt(img, (error, response) => {
-        if (error) {
-            res.send({ error })
-        } else {
-            res.send(response.body)
-        }
-    })
 })
 
 app.listen(port, () => {

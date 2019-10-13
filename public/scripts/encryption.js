@@ -36,7 +36,7 @@ encryptForm.addEventListener('submit', (e) => {
         fetch('/encrypt?text=' + plainText).then((response) => {
             response.json().then((data) => {
                 if (data.error) {
-                    encryptedTextField.innerHTML = 'Error'
+                    alert('Something went wrong')
                 } else {
                     cipherData = data.cipherData
                     encryptedTextField.innerHTML = data.cipherData.cipherText
@@ -57,20 +57,24 @@ normalImgBtn.addEventListener('click', (e) => {
 
         showPacman(nacman)
 
-        fetch('/t2i?text=' + encText).then((response) => {
-            response.json().then((data) => {
+        fetch('https://stegoman-api.herokuapp.com/text2img', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ text: encText })
+        })
+        .then((res) => res.json())
+        .then((data) => {
 
-                hidePacman(nacman)
+            hidePacman(nacman)
 
-                if(data.error || !data.img)
-                    alert("Something went wrong")
-                else {
-                    console.log('Button clicked')
-                    console.log(data)
-                    normalImgLink.href = 'data:image/bmp;base64,' + data.img
-                    normalImgLink.click()
-                }
-            })
+            if (data.error) {
+                alert('Something went wrong')
+            } else {
+                normalImgLink.href = 'data:image/bmp;base64,' + data.img
+                normalImgLink.click()
+            }
         })
         
     }
@@ -79,7 +83,11 @@ normalImgBtn.addEventListener('click', (e) => {
 
 shreImgBtn.addEventListener('click', (e) => {
     e.preventDefault()
-    const encText = encryptedTextField.innerHTML
+
+    let encText = encryptedTextField.innerHTML
+    let text = cipherData.cipherText
+    let msg = cipherData.wordLens.split(',')
+
     if (encText == 'Error' || encText == '' || !cipherData) {
         alert('SHREncrypted text not found')
     } else {
@@ -87,20 +95,27 @@ shreImgBtn.addEventListener('click', (e) => {
 
         showPacman(sacman)
 
-        fetch('/shrencrypt?text=' + cipherData.cipherText + '&msg=' + cipherData.wordLens).then((response) => {
-            response.json().then((data) => {
-
-                hidePacman(sacman)
-                console.log(data)
-                if(data.error || !data.img)
-                    alert("Something went wrong")
-                else {
-                    console.log('Button clicked')
-                    console.log(data)
-                    shreImgLink.href = 'data:image/bmp;base64,' + data.img
-                    shreImgLink.click()
-                }
+        fetch('https://stegoman-api.herokuapp.com/shrencrypt', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({ 
+                text,
+                msg
             })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+
+            hidePacman(nacman)
+
+            if (data.error) {
+                alert('Something went wrong')
+            } else {
+                shreImgLink.href = 'data:image/bmp;base64,' + data.img
+                shreImgLink.click()
+            }
         })
         
     }

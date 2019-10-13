@@ -1,47 +1,53 @@
+const decryptImgButton = document.getElementById('decrypt-img')
+const decryptedMsg = document.getElementById('decrypted-msg')
+const imgBase64 = document.getElementById('img-base64')
+const fileInput = document.getElementById('files')
+
 // Check for the File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    fileInput.addEventListener('change', handleFileSelect, false)
 } else {
-    alert('The File APIs are not fully supported in this browser.');
+    alert('The File APIs are not fully supported in this browser.')
 }
   
 function handleFileSelect(evt) {
-    var f = evt.target.files[0]; // FileList object
-    var reader = new FileReader();
-    // Closure to capture the file information.
-    reader.onload = (function(theFile) {
-        return function(e) {
-            var binaryData = e.target.result;
-            //Converting Binary Data to base 64
-            var base64String = window.btoa(binaryData);
-            //showing file converted to base64
-            document.getElementById('base64').value = base64String;
-            // alert('File converted to base64 successfuly!\nCheck in Textarea');
-        };
-    })(f);
+    let image = evt.target.files[0]
+    let reader = new FileReader()
+
+    reader.onload = ( () => {
+        return (e) => {
+            let binaryData = e.target.result
+
+            let base64String = window.btoa(binaryData)
+
+            imgBase64.value = base64String
+        }
+    })(image)
 
     // Read in the image file as a data URL.
-    reader.readAsBinaryString(f);
+    reader.readAsBinaryString(image)
 }
-
-const decryptImgButton = document.getElementById('decrypt-img')
-const decryptedMsg = document.getElementById('decrypted-msg')
 
 
 decryptImgButton.addEventListener('click', (e) => {
     e.preventDefault()
-    let ib64 = document.getElementById('base64').value
 
-    fetch('/deshrencrypt', {
-        method: 'post',
+    fetch('https://stegoman-api.herokuapp.com/deshrencrypt', {
+        method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type' : 'application/json'
         },
-        body: JSON.stringify({img: ib64})
-    }).then(res=>res.json())
-    .then((res) => {
-        console.log(res)
-        decryptedMsg.value = res.msg
-    });
+        body: JSON.stringify({ 
+            img: imgBase64.value
+        })
+    })
+    .then((res) => res.json())
+    .then((data) => {
+
+        if (data.error) {
+            alert('Something went wrong')
+        } else {
+            decryptedMsg.value = data.msg
+        }
+    })
 })

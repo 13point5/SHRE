@@ -1,16 +1,22 @@
-const encryptForm = document.querySelector('#encrypt-form')
-const plainTextField = document.querySelector('#plain-text')
-const encryptedTextField = document.querySelector('#encrypted-text')
-const downloadImgBtn = document.querySelector('#download-img-btn')
-const actualDownloadImgBtn = document.querySelector('#actual-download-img-btn')
-const pacman = document.getElementById("pacman")
+const encryptForm = document.getElementById('encrypt-form')
+const plainTextField = document.getElementById('plain-text')
+const encryptedTextField = document.getElementById('encrypted-text')
+const normalImgBtn = document.getElementById('normal-img-btn')
+const shreImgBtn = document.getElementById('shre-img-btn')
+const normalImgLink = document.getElementById('normal-img-link')
+const shreImgLink = document.getElementById('shre-img-link')
+const nacman = document.getElementById("nacman")
+const sacman = document.getElementById("sacman")
 
-showPacman = () => {
-    pacman.className = "show"
+let cipherData
+
+showPacman = (pacman) => {
+    pacman.className = "pacman-show"
 }
 
-hidePacman = () => {
-    pacman.className = pacman.className.replace("show", "")
+
+hidePacman = (pacman) => {
+    pacman.className = pacman.className.replace("pacman-show", "pacman")
 }
 
 
@@ -27,6 +33,7 @@ encryptForm.addEventListener('submit', (e) => {
                 if (data.error) {
                     encryptedTextField.innerHTML = 'Error'
                 } else {
+                    cipherData = data.cipherData
                     encryptedTextField.innerHTML = data.cipherData.cipherText
                 }
             })
@@ -36,27 +43,57 @@ encryptForm.addEventListener('submit', (e) => {
 })
 
 
-downloadImgBtn.addEventListener('click', (e) => {
+normalImgBtn.addEventListener('click', (e) => {
     e.preventDefault()
     const encText = encryptedTextField.innerHTML
     if (encText == 'Error' || encText == '') {
         alert('SHREncrypted text not found')
     } else {
         // show pacman
-        showPacman()
+        showPacman(nacman)
 
         fetch('/t2i?text=' + encText).then((response) => {
             response.json().then((data) => {
                 // hide pacman
-                hidePacman()
+                hidePacman(nacman)
 
                 if(data.error || !data.img)
                     alert("Something went wrong")
                 else {
                     console.log('Button clicked')
                     console.log(data)
-                    actualDownloadImgBtn.href = 'data:image/png;base64,' + data.img
-                    actualDownloadImgBtn.click()
+                    normalImgLink.href = 'data:image/bmp;base64,' + data.img
+                    normalImgLink.click()
+                }
+            })
+        })
+        
+    }
+})
+
+
+shreImgBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    const encText = encryptedTextField.innerHTML
+    if (encText == 'Error' || encText == '' || !cipherData) {
+        alert('SHREncrypted text not found')
+    } else {
+        console.log(cipherData)
+        // show pacman
+        showPacman(sacman)
+
+        fetch('/shrencrypt?text=' + cipherData.cipherText + '&msg=' + cipherData.wordLens).then((response) => {
+            response.json().then((data) => {
+                // hide pacman
+                hidePacman(sacman)
+                console.log(data)
+                if(data.error || !data.img)
+                    alert("Something went wrong")
+                else {
+                    console.log('Button clicked')
+                    console.log(data)
+                    shreImgLink.href = 'data:image/bmp;base64,' + data.img
+                    shreImgLink.click()
                 }
             })
         })

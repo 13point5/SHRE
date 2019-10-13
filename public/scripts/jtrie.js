@@ -156,7 +156,7 @@ class Trie {
         let array = fs.readFileSync(filePath).toString().split("\n")
         for (let i = 0; i < array.length; i++) {
             if (array[i]) {
-                    this.addWord(array[i])
+                this.addWord(array[i])
             }
         }
     }
@@ -180,6 +180,4 @@ let dataPath = path.join(__dirname, '../data/t1.json')
 
 trie.loadTrie(dataPath)
 
-module.exports = {
-    Trie: trie
-}
+module.exports = trie

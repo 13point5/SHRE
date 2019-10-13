@@ -1,11 +1,13 @@
-const express = require('express');
-const path = require('path');
-const hbs = require('hbs');
-const trie = require('../public/scripts/jtrie.js').Trie;
-const text2img = require('./text2img.js')
+const express = require('express')
+const path = require('path')
+const hbs = require('hbs')
+const trie = require('../public/scripts/jtrie.js')
+const stego = require('./stego')
+
 
 const app = express()
 const port = process.env.PORT || 3003
+
 
 const publicDirPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
@@ -27,14 +29,6 @@ app.get('/decrypt', (req, res) => {
     res.render('decryption')
 })
 
-// app.get('/docs', (req, res) => {
-//     res.render('docs')
-// })
-
-// app.get('/about', (req, res) => {
-//     res.render('about')
-// })
-
 app.get('/encrypt', (req, res) => {
     let cipher = trie.encrypt(req.query.text)
     let cipherData = trie.encryptedText(cipher)
@@ -43,11 +37,21 @@ app.get('/encrypt', (req, res) => {
 
 app.get('/t2i', (req, res) => {
     let ptext = req.query.text
-    text2img(ptext, (error, response) => {
+    stego.text2img(ptext, (error, response) => {
         if (error) {
-            res.send({
-                error
-            })
+            res.send({ error })
+        } else {
+            res.send(response.body)
+        }
+    })
+})
+
+app.get('/shrencrypt', (req, res) => {
+    let text = req.query.text
+    let msg = req.query.msg
+    stego.shrencrypt(text, msg, (error, response) => {
+        if (error) {
+            res.send({ error })
         } else {
             res.send(response.body)
         }
@@ -55,5 +59,5 @@ app.get('/t2i', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log('app running on port: ' + port);
+    console.log('app running on port: ' + port)
 })

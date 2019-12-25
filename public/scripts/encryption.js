@@ -16,7 +16,7 @@ let cipherData
 
 
 showPacman = (pacman) => {
-    pacman.className = "pacman-show"
+    pacman.className = pacman.className.replace("pacman", "pacman-show")
 }
 
 
@@ -76,6 +76,8 @@ normalImgBtn.addEventListener('click', (e) => {
                 normalImgLink.click()
             }
         })
+
+        
         
     }
 })
@@ -108,7 +110,7 @@ shreImgBtn.addEventListener('click', (e) => {
         .then((res) => res.json())
         .then((data) => {
 
-            hidePacman(nacman)
+            hidePacman(sacman)
 
             if (data.error) {
                 alert('Something went wrong')
